@@ -1,0 +1,929 @@
+{
+	"info": {
+		"_postman_id": "443a9412-cc3b-4e50-8e33-5c02a7fa3036",
+		"name": "RealEstate",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "New usuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"propid\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Juan Javier\",\r\n    \"apellidos\": \"Carballo\",\r\n    \"email\": \"JujaCarballo@asgamail.com\",\r\n    \"password\": \"Apedra\",\r\n    \"password2\": \"Apedra\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE}}/auth/register/user",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"auth",
+								"register",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"pm.collectionVariables.set(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{adminEmail}}\",\r\n    \"password\": \"{{adminPass}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE}}/auth/login",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							],
+							"query": [
+								{
+									"key": null,
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Manuel\",\r\n    \"apellidos\": \"Fernandez\",\r\n    \"email\": \"manu.fernandez@gamail.com\",\r\n    \"password\": \"bocadilloChorizo\",\r\n    \"password2\": \"bocadilloChorizo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE}}/auth/register/admin",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"auth",
+								"register",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Gestor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Sr.\",\r\n    \"apellidos\": \"Gestor\",\r\n    \"email\": \"ungestormas@gmail.com\",\r\n    \"password\": \"albondigas\",\r\n    \"password2\": \"albondigas\",\r\n    \"inmobiliaria\": \"mairenaAljarafe@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE}}/auth/register/gestor",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"auth",
+								"register",
+								"gestor"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Propietario",
+			"item": [
+				{
+					"name": "Un propietario",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE}}/propietario/{{propid}}",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"propietario",
+								"{{propid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Todos los propietarios",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE}}/propietario/",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"propietario",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar propietarios y lista de viviendas",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/propietario/{{propid}}",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"propietario",
+								"{{propid}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Viviendas",
+			"item": [
+				{
+					"name": "Se crea una vivienda y se agrega el propietario logueado",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\":\"titulo\",\r\n    \"precio\":213,\r\n    \"descripcion\":\"hololo\",\r\n    \"tipo\":\"Venta\",\r\n    \"nombre\":\"Gustavo\",\r\n    \"metrosCuadrados\":232134,\r\n    \"poblacion\": \"asduaishd\",\r\n    \"direccion\":\"sadsad\",\r\n    \"provincia\":\"22222222\",\r\n    \"codPostal\":\"4444444\",\r\n    \"latLng\":\"3333\",\r\n    \"tienePiscina\":true,\r\n    \"tieneGaraje\":false,\r\n    \"tieneAscensor\":true,\r\n    \"avatar\":\"aaaa\",\r\n    \"numBanos\":2,\r\n    \"numHabitaciones\":23\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE}}/vivienda/",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"vivienda",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Lista viviendas paginada",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE}}/vivienda/",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"vivienda",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vivienda y Propietario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/vivienda/ac1b460b-7d5c-1828-817d-5c5f40f50005",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"vivienda",
+								"ac1b460b-7d5c-1828-817d-5c5f40f50005"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizo los datos de una vivienda",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"titulo\": \"Ático\",\r\n    \"descripcion\": \"Ático muy luminoso y amplio\",\r\n    \"tienePiscina\": true,\r\n    \"tieneAscensor\": false,\r\n    \"tieneGaraje\": true,\r\n    \"numHabitaciones\": 5,\r\n    \"numBanos\": 2,\r\n    \"precio\": 1500,\r\n    \"metrosCuadrados\": 135,\r\n    \"tipo\": 1,\r\n    \"id\": 3\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE}}/vivienda/ac1b460b-7d5c-1828-817d-5c5f40f50005",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"vivienda",
+								"ac1b460b-7d5c-1828-817d-5c5f40f50005"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Vivienda y sus intereses",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/vivienda/ac1b460b-7d5c-1828-817d-5c5f40f50005",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"vivienda",
+								"ac1b460b-7d5c-1828-817d-5c5f40f50005"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Asociar inmobiliara a una vivienda",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/vivienda/ac1b460b-7d5c-1828-817d-5c5f40f50005/inmobiliaria/ac1b460b-7d5c-1f12-817d-5c0f18280002",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"vivienda",
+								"ac1b460b-7d5c-1828-817d-5c5f40f50005",
+								"inmobiliaria",
+								"ac1b460b-7d5c-1f12-817d-5c0f18280002"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Interesantes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/vivienda/top?n=10",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"vivienda",
+								"top"
+							],
+							"query": [
+								{
+									"key": "n",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Inmobiliaria",
+			"item": [
+				{
+					"name": "Nueva inmobiliaria",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"A pedra Sl\",\r\n    \"email\": \"apedrasl@gmail.com\",\r\n    \"telefono\": \"234567892\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE}}/inmobiliaria/",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"inmobiliaria",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Encontrar todas las inmobiliarias",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);\r",
+									"if(jsonData.length > 0) {\r",
+									"pm.collectionVariables.set(\"inmoid\", jsonData[0].id);\r",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/inmobiliaria/all",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"inmobiliaria",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Una",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{API_BASE}}/inmobiliaria/{{inmoid}}",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"inmobiliaria",
+								"{{inmoid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar por id",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE}}/inmobiliaria/{{inmoid}}",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"inmobiliaria",
+								"{{inmoid}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Interesa",
+			"item": [
+				{
+					"name": "Me interesa",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mensaje\": \"Jaja si\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE}}/vivienda/{{vivid}}/meinteresa/",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"vivienda",
+								"{{vivid}}",
+								"meinteresa",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "No me interesa",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mensaje\": \"Jaja si\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE}}/vivienda/{{vivid}}/meinteresa/",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"vivienda",
+								"{{vivid}}",
+								"meinteresa",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Todos los interesados",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE}}/interesado/",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"interesado",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Un interesado",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{API_BASE}}/interesado/",
+							"host": [
+								"{{API_BASE}}"
+							],
+							"path": [
+								"interesado",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "userEmail",
+			"value": "JujaCarballo@asgamail.com"
+		},
+		{
+			"key": "userPass",
+			"value": "Apedra"
+		},
+		{
+			"key": "adminPass",
+			"value": "admin"
+		},
+		{
+			"key": "adminEmail",
+			"value": "soyadmin@gmail.com"
+		},
+		{
+			"key": "gestEmail",
+			"value": "ungestormas@gmail.com"
+		},
+		{
+			"key": "gestPass",
+			"value": "albondigas"
+		},
+		{
+			"key": "gestPass",
+			"value": ""
+		},
+		{
+			"key": "propid",
+			"value": ""
+		},
+		{
+			"key": "inmoid",
+			"value": ""
+		},
+		{
+			"key": "vivid",
+			"value": ""
+		}
+	]
+}
